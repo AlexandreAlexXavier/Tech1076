@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Bingo {
 
-    static String[] EntrarNomeJogadores() {
+    static String[] EntrarNomesDeJogadores() {
 
         Scanner entrada = new Scanner(System.in);
         String[] nomes = entrada.nextLine().split("-");
@@ -11,60 +11,65 @@ public class Bingo {
         return nomes;
     }
 
-    static int[][] GerarCartelas(int numeroJogadores) {
+    static int[][] GerarSequenciaDeNumeros(int quantidadeDeSequencias, int quantidadeNumerosDaSequencia,
+                                         int valorMaximoDaSequencia) {
 
-        int[][] sequenciaNumeros = new int[numeroJogadores][5];
+        int[][] sequenciaNumerica = new int[quantidadeDeSequencias][quantidadeNumerosDaSequencia];
 
-        for (int i = 0; i < numeroJogadores; i++) {
-            for (int j = 0; j < 5; j++) {
-                sequenciaNumeros[i][j] = (int) (Math.random() * 60);
+        for (int i = 0; i < quantidadeDeSequencias; i++) {
+            for (int j = 0; j < quantidadeNumerosDaSequencia; j++) {
+                sequenciaNumerica[i][j] = (int) (Math.random() * valorMaximoDaSequencia);
             }
-            Arrays.sort(sequenciaNumeros[i]);
+            Arrays.sort(sequenciaNumerica[i]);
 
-            boolean SequenciaValida = (ValidarCartela(sequenciaNumeros[i]));
+            boolean SequenciaValida = (ValidarSequenciaNumerica(sequenciaNumerica[i]));
             if (!SequenciaValida) {
                 i--;
             }
         }
-        return sequenciaNumeros;
+        return sequenciaNumerica;
     }
 
-    static boolean ValidarCartela(int[] cartela) {
+    static boolean ValidarSequenciaNumerica(int[] sequencia) {
 
-        boolean cartelaValida = true;
+        boolean sequenciaValida = true;
         int i = 0;
 
-        while (cartelaValida && (i < cartela.length - 1)) {
-            if (cartela[i] == cartela[i + 1]) {
-                cartelaValida = false;
+        while (sequenciaValida && (i < sequencia.length - 1)) {
+            if (sequencia[i] == sequencia[i + 1]) {
+                sequenciaValida = false;
             }
             i++;
         }
-        return cartelaValida;
+        return sequenciaValida;
     }
 
-    static int[] CriarListaNumeros(int valorMáximo) {
+    static int[] CriarListaDeNumeros(int valorMáximo) {
 
-        int[] listaNumeros = new int[valorMáximo + 1];
+        int[] listaDeNumeros = new int[valorMáximo + 1];
         for (int i = 0; i <= valorMáximo; i++) {
-            listaNumeros[i] = i;
+            listaDeNumeros[i] = i;
         }
-        return listaNumeros;
+        return listaDeNumeros;
     }
 
     public static void main(String[] args) {
 
         System.out.println("Digite o nome d@s participantes (separe por -)");
-        String[] nomesJogadores = EntrarNomeJogadores();
+        String[] nomesDeJogadores = EntrarNomesDeJogadores();
 
-        int[][] numerosCartelas = GerarCartelas(nomesJogadores.length);
+        int quantidadeDeNumerosPorCartela = 5;
+        int valorMaximoNaCartela = 60;
 
-        for (int i = 0; i < nomesJogadores.length; i++) {
-            System.out.printf(nomesJogadores[i].toUpperCase() + " " + Arrays.toString(numerosCartelas[i]));
+        int[][] cartelasGeradas = GerarSequenciaDeNumeros(nomesDeJogadores.length,quantidadeDeNumerosPorCartela,
+                valorMaximoNaCartela);
+
+        for (int i = 0; i < nomesDeJogadores.length; i++) {
+            System.out.printf(nomesDeJogadores[i].toUpperCase() + " " + Arrays.toString(cartelasGeradas[i]));
             System.out.println();
         }
 
-        int[] saquinhoSorteio = CriarListaNumeros(60);
+        int[] saquinhoSorteio = CriarListaDeNumeros(valorMaximoNaCartela);
 
         for (int i = 0; i < saquinhoSorteio.length; i++) {
             System.out.printf(saquinhoSorteio[i] + " ");
