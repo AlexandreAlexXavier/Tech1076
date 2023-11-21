@@ -22,7 +22,7 @@ public class Bingo {
             }
             Arrays.sort(sequenciaNumerica[i]);
 
-            boolean SequenciaValida = (ValidarSequenciaNumerica(sequenciaNumerica[i]));
+            boolean SequenciaValida = (ValidarSequenciaDeNumeros(sequenciaNumerica[i]));
             if (!SequenciaValida) {
                 i--;
             }
@@ -30,7 +30,7 @@ public class Bingo {
         return sequenciaNumerica;
     }
 
-    static boolean ValidarSequenciaNumerica(int[] sequencia) {
+    static boolean ValidarSequenciaDeNumeros(int[] sequencia) {
 
         boolean sequenciaValida = true;
         int i = 0;
@@ -60,8 +60,9 @@ public class Bingo {
 
         int quantidadeDeNumerosPorCartela = 5;
         int valorMaximoNaCartela = 60;
+        int numeroDeJogadores = nomesDeJogadores.length;
 
-        int[][] cartelasGeradas = GerarSequenciaDeNumeros(nomesDeJogadores.length,quantidadeDeNumerosPorCartela,
+        int[][] cartelasGeradas = GerarSequenciaDeNumeros(numeroDeJogadores,quantidadeDeNumerosPorCartela,
                 valorMaximoNaCartela);
 
         for (int i = 0; i < nomesDeJogadores.length; i++) {
@@ -69,11 +70,31 @@ public class Bingo {
             System.out.println();
         }
 
-        int[] saquinhoSorteio = CriarListaDeNumeros(valorMaximoNaCartela);
+        int[] saquinhoDeSorteio = CriarListaDeNumeros(valorMaximoNaCartela);
+        int[][] numerosSorteados = GerarSequenciaDeNumeros(1,quantidadeDeNumerosPorCartela,
+                valorMaximoNaCartela);
 
-        for (int i = 0; i < saquinhoSorteio.length; i++) {
-            System.out.printf(saquinhoSorteio[i] + " ");
-        }
+        System.out.println(Arrays.toString(saquinhoDeSorteio));
         System.out.println();
+        System.out.println(Arrays.toString(numerosSorteados[0]));
+        System.out.println();
+
+
+        int[] saquinhoAuxiliar = new int[55];
+        int j=0;
+        int k=0;
+
+        for ( int i = 0;i < saquinhoDeSorteio.length-1; i++) {
+            if (j<5 && i == numerosSorteados[0][j]) {
+                j++;
+            } else {
+                saquinhoAuxiliar[k] = saquinhoDeSorteio[i];
+                k++;
+            }
+
+        }
+
+
+        System.out.println(Arrays.toString(saquinhoAuxiliar));
     }
 }
