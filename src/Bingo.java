@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
@@ -6,6 +7,21 @@ import static java.lang.Integer.compare;
 import static java.lang.Integer.valueOf;
 
 public class Bingo {
+
+
+    static void Abertura() throws IOException, InterruptedException {
+
+        /*if (System.getProperty("os.name").contains("Windows"))
+                    new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();*/
+
+        System.out.println();
+        System.out.println("*******************************************************************");
+        System.out.println("*******************************************************************");
+        System.out.println("***************         e-BINGO 5.0 PLUS            ***************");
+        System.out.println("*******************************************************************");
+        System.out.println("*******************************************************************");
+        System.out.println();
+    }
 
     static String[] EntrarNomesDeJogadores() {
 
@@ -57,32 +73,25 @@ public class Bingo {
         return listaDeNumeros;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, InterruptedException {
 
-        System.out.println("Digite o nome d@s participantes (separe por -)");
+        Abertura();
+
+        System.out.println("Digite o nome d@s participantes (separe por -):");
         String[] nomesDeJogadores = EntrarNomesDeJogadores();
 
-        int quantidadeDeNumerosPorCartela = 5;
-        int valorMaximoNaCartela = 60;
-        int numeroDeJogadores = nomesDeJogadores.length;
-
-        int[][] cartelasGeradas = GerarSequenciaDeNumeros(numeroDeJogadores, quantidadeDeNumerosPorCartela,
-                valorMaximoNaCartela);
-
-        /*for (int i = 0; i < nomesDeJogadores.length; i++) {
-            System.out.printf(nomesDeJogadores[i].toUpperCase() + " " + Arrays.toString(cartelasGeradas[i]));
-            System.out.println();
-        }*/
-
-        int[] saquinhoDeSorteio = CriarListaDeNumeros(valorMaximoNaCartela);
-        System.out.println(Arrays.toString(saquinhoDeSorteio));
-        System.out.println();
-
-        int[][] numeroDeAcertos = new int[numeroDeJogadores][5];
-        int numeroDePosicoes = saquinhoDeSorteio.length;
+        int     quantidadeDeNumerosPorCartela   = 5;
+        int     valorMaximoNaCartela            = 60;
+        int     numeroDeJogadores               = nomesDeJogadores.length;
+        int[][] cartelasGeradas                 = GerarSequenciaDeNumeros(numeroDeJogadores,
+                                                                        quantidadeDeNumerosPorCartela,
+                                                                        valorMaximoNaCartela);
+        int[]   saquinhoDeSorteio               = CriarListaDeNumeros(valorMaximoNaCartela);
+        int[][] numeroDeAcertos                 = new int[numeroDeJogadores][5];
+        int     numeroDePosicoes                = saquinhoDeSorteio.length;
 
 
-        for (int round = 1; round < 13; round++) {
+        for (int rodadaDoJogo = 1; rodadaDoJogo < 13; rodadaDoJogo++) {
 
             int[][] posicoesSorteadas = GerarSequenciaDeNumeros(1, quantidadeDeNumerosPorCartela,
                     numeroDePosicoes);
@@ -92,7 +101,7 @@ public class Bingo {
                 numerosSorteados[i] = saquinhoDeSorteio[posicoesSorteadas[0][i]];
                 }
             System.out.println();
-            System.out.println("Round: " + round +
+            System.out.println("Rodada: " + rodadaDoJogo +
                                 " Números sorteados: " + Arrays.toString(numerosSorteados));
             System.out.println();
 
@@ -107,9 +116,8 @@ public class Bingo {
             }
 
             for (int i = 0; i < numeroDeJogadores; i++) {
-                System.out.printf(nomesDeJogadores[i].toUpperCase() +
-                        " " + Arrays.toString(cartelasGeradas[i]) +
-                        " " + Arrays.toString(numeroDeAcertos[i]));
+                System.out.printf("%-20s %-30s %-30s", nomesDeJogadores[i].toUpperCase(),
+                        Arrays.toString(cartelasGeradas[i]),Arrays.toString(numeroDeAcertos[i]));
                 System.out.println();
             }
             int numeroDePosicoesAux = numeroDePosicoes;
@@ -134,13 +142,8 @@ public class Bingo {
 
             numeroDePosicoes = saquinhoAuxiliar.length;
 
-            /*
-            System.out.println(Arrays.toString(saquinhoDeSorteio));
-            System.out.println(Arrays.toString(saquinhoAuxiliar));
-            System.out.println();
-            */
-
             int[] total = new int[numeroDeJogadores];
+            String[] vencedoresDoBingo = new String[numeroDeJogadores];
             boolean alguemVenceu = false;
 
             for (int d =0; d<numeroDeJogadores; d++){
@@ -148,12 +151,22 @@ public class Bingo {
                     total[d] = total[d] + numeroDeAcertos[d][e];
                     if (total[d] == 5) {
                         alguemVenceu = true;
+                        vencedoresDoBingo[d] = "venceu";
+                    }else {
+                        vencedoresDoBingo[d] = "";
                     }
 
                 }
             }
             if (alguemVenceu){
-                System.out.println("Alguem venceu");
+                System.out.println();
+                System.out.println("A partida foi vencida por: ");
+                for(int i=0; i<numeroDeJogadores; i++){
+                    if (!vencedoresDoBingo[i].isEmpty()) {
+                        System.out.println(nomesDeJogadores[i].toUpperCase());
+                    }
+
+                }
                 break;
             }
         }
