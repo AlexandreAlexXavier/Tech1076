@@ -92,12 +92,12 @@ public class Bingo {
         int[]   saquinhoDeSorteio               = CriarListaDeNumeros(valorMaximoNaCartela);
         int     numeroDePosicoes                = saquinhoDeSorteio.length;
 
-        if (manualAutomatico.equalsIgnoreCase("A")){
-            int[][] cartelasGeradas                 = GerarSequenciaDeNumeros(numeroDeJogadores,
+        /* entrada de cartelas */
+        if (manualAutomatico.equalsIgnoreCase("A")) {
+        }
+        int[][] cartelasGeradas                 = GerarSequenciaDeNumeros(numeroDeJogadores,
                                                         quantidadeDeNumerosPorCartela,
                                                         valorMaximoNaCartela);
-
-        } /* entrada de cartelas */
 
         for (int rodadaDoJogo = 1; rodadaDoJogo < 13; rodadaDoJogo++) {
 
