@@ -79,17 +79,25 @@ public class Bingo {
 
         System.out.println("Digite o nome d@s participantes (separe por -):");
         String[] nomesDeJogadores = EntrarNomesDeJogadores();
+        System.out.println();
+        System.out.println("Geração de cartelas Manual ou Automática (M/A)?");
+        Scanner entrada = new Scanner(System.in);
+        String manualAutomatico = entrada.nextLine();
+
 
         int     quantidadeDeNumerosPorCartela   = 5;
         int     valorMaximoNaCartela            = 60;
         int     numeroDeJogadores               = nomesDeJogadores.length;
-        int[][] cartelasGeradas                 = GerarSequenciaDeNumeros(numeroDeJogadores,
-                                                                        quantidadeDeNumerosPorCartela,
-                                                                        valorMaximoNaCartela);
-        int[]   saquinhoDeSorteio               = CriarListaDeNumeros(valorMaximoNaCartela);
         int[][] numeroDeAcertos                 = new int[numeroDeJogadores][5];
+        int[]   saquinhoDeSorteio               = CriarListaDeNumeros(valorMaximoNaCartela);
         int     numeroDePosicoes                = saquinhoDeSorteio.length;
 
+        if (manualAutomatico.equalsIgnoreCase("A")){
+            int[][] cartelasGeradas                 = GerarSequenciaDeNumeros(numeroDeJogadores,
+                                                        quantidadeDeNumerosPorCartela,
+                                                        valorMaximoNaCartela);
+
+        } /* entrada de cartelas */
 
         for (int rodadaDoJogo = 1; rodadaDoJogo < 13; rodadaDoJogo++) {
 
@@ -134,28 +142,25 @@ public class Bingo {
                     saquinhoAuxiliar[k] = saquinhoDeSorteio[i];
                     k++;
                 }
-
             }
             for (int i = 0; i < numeroDePosicoes; i++) {
                 saquinhoDeSorteio[i] = saquinhoAuxiliar[i];
             }
-
             numeroDePosicoes = saquinhoAuxiliar.length;
 
-            int[] total = new int[numeroDeJogadores];
-            String[] vencedoresDoBingo = new String[numeroDeJogadores];
-            boolean alguemVenceu = false;
+            int[]    totalPontos           = new int[numeroDeJogadores];
+            String[] vencedoresDoBingo     = new String[numeroDeJogadores];
+            boolean  alguemVenceu          = false;
 
             for (int d =0; d<numeroDeJogadores; d++){
                 for (int e = 0; e<5; e++){
-                    total[d] = total[d] + numeroDeAcertos[d][e];
-                    if (total[d] == 5) {
+                    totalPontos[d] = totalPontos[d] + numeroDeAcertos[d][e];
+                    if (totalPontos[d] == 5) {
                         alguemVenceu = true;
                         vencedoresDoBingo[d] = "venceu";
                     }else {
                         vencedoresDoBingo[d] = "";
                     }
-
                 }
             }
             if (alguemVenceu){
@@ -165,7 +170,6 @@ public class Bingo {
                     if (!vencedoresDoBingo[i].isEmpty()) {
                         System.out.println(nomesDeJogadores[i].toUpperCase());
                     }
-
                 }
                 break;
             }
