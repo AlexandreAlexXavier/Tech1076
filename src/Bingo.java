@@ -11,9 +11,6 @@ public class Bingo {
 
     static void Abertura() throws IOException, InterruptedException {
 
-        /*if (System.getProperty("os.name").contains("Windows"))
-                    new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();*/
-
         System.out.println();
         System.out.println("*******************************************************************");
         System.out.println("*******************************************************************");
@@ -26,13 +23,13 @@ public class Bingo {
     static String[] EntrarNomesDeJogadores() {
 
         Scanner entrada = new Scanner(System.in);
-        String[] nomes = entrada.nextLine().split("-");
+        String[] nomes  = entrada.nextLine().split("-");
 
         return nomes;
     }
 
     static int[][] GerarSequenciaDeNumeros(int quantidadeDeSequencias, int quantidadeNumerosDaSequencia,
-                                         int valorMaximoDaSequencia) {
+                                            int valorMaximoDaSequencia) {
 
         int[][] sequenciaNumerica = new int[quantidadeDeSequencias][quantidadeNumerosDaSequencia];
 
@@ -67,6 +64,7 @@ public class Bingo {
     static int[] CriarListaDeNumeros(int valorMáximo) {
 
         int[] listaDeNumeros = new int[valorMáximo + 1];
+
         for (int i = 0; i <= valorMáximo; i++) {
             listaDeNumeros[i] = i;
         }
@@ -80,9 +78,10 @@ public class Bingo {
         System.out.println("Digite o nome d@s participantes (separe por -):");
         String[] nomesDeJogadores = EntrarNomesDeJogadores();
         System.out.println();
-        System.out.println("Geração de cartelas Manual ou Automática (M/A)?");
+
+        /*System.out.println("Geração de cartelas Manual ou Automática (M/A)?");
         Scanner entrada = new Scanner(System.in);
-        String manualAutomatico = entrada.nextLine();
+        String manualAutomatico = entrada.nextLine();*/
 
 
         int     quantidadeDeNumerosPorCartela   = 5;
@@ -92,9 +91,9 @@ public class Bingo {
         int[]   saquinhoDeSorteio               = CriarListaDeNumeros(valorMaximoNaCartela);
         int     numeroDePosicoes                = saquinhoDeSorteio.length;
 
-        /* entrada de cartelas */
+        /* entrada de cartelas
         if (manualAutomatico.equalsIgnoreCase("A")) {
-        }
+        }*/
         int[][] cartelasGeradas                 = GerarSequenciaDeNumeros(numeroDeJogadores,
                                                         quantidadeDeNumerosPorCartela,
                                                         valorMaximoNaCartela);
