@@ -1,15 +1,11 @@
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Objects;
 import java.util.Scanner;
-
-import static java.lang.Integer.compare;
-import static java.lang.Integer.valueOf;
 
 public class Bingo {
 
 
-    static void Abertura() throws IOException, InterruptedException {
+    static void Abertura()  {
 
         System.out.println();
         System.out.println("*******************************************************************");
@@ -71,18 +67,13 @@ public class Bingo {
         return listaDeNumeros;
     }
 
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args)  {
 
         Abertura();
 
         System.out.println("Digite o nome d@s participantes (separe por -):");
         String[] nomesDeJogadores = EntrarNomesDeJogadores();
         System.out.println();
-
-        /*System.out.println("Geração de cartelas Manual ou Automática (M/A)?");
-        Scanner entrada = new Scanner(System.in);
-        String manualAutomatico = entrada.nextLine();*/
-
 
         int     quantidadeDeNumerosPorCartela   = 5;
         int     valorMaximoNaCartela            = 60;
@@ -91,9 +82,7 @@ public class Bingo {
         int[]   saquinhoDeSorteio               = CriarListaDeNumeros(valorMaximoNaCartela);
         int     numeroDePosicoes                = saquinhoDeSorteio.length;
 
-        /* entrada de cartelas
-        if (manualAutomatico.equalsIgnoreCase("A")) {
-        }*/
+        
         int[][] cartelasGeradas                 = GerarSequenciaDeNumeros(numeroDeJogadores,
                                                         quantidadeDeNumerosPorCartela,
                                                         valorMaximoNaCartela);
