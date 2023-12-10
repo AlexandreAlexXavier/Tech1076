@@ -11,7 +11,7 @@ public class Bingo {
         return nomes;
     }
 
-    static int[][] GerarCartelas(int numeroJogadores) {
+    static int[][] GerarSequenciaNumeros(int numeroJogadores) {
 
         int[][] sequenciaNumeros = new int[numeroJogadores][5];
 
@@ -57,7 +57,7 @@ public class Bingo {
         System.out.println("Digite o nome d@s participantes (separe por -)");
         String[] nomesJogadores = EntrarNomeJogadores();
 
-        int[][] numerosCartelas = GerarCartelas(nomesJogadores.length);
+        int[][] numerosCartelas = GerarSequenciaNumeros(nomesJogadores.length);
 
         for (int i = 0; i < nomesJogadores.length; i++) {
             System.out.printf(nomesJogadores[i].toUpperCase() + " " + Arrays.toString(numerosCartelas[i]));
