@@ -1,66 +1,27 @@
 package ProjetoIMDB;
 
-public class Filme {
+import java.util.ArrayList;
+import java.util.List;
 
-    private String titulo;
-    private String genero;
-    private String idioma;
-    private String[] diretor;
-    private String ano;
-    private String[] ator;
+class Filme {
+    String nome;
+    String dataLancamento;
+    double orcamento;
+    String descricao;
+    Diretor diretor;
+    List<Ator> atores;
 
-    public Filme(String titulo, String genero, String idioma, String[] diretor, String ano, String[] ator) {
-        this.titulo = titulo;
-        this.genero = genero;
-        this.idioma = idioma;
+    public Filme(String nome, String dataLancamento, double orcamento, String descricao, Diretor diretor) {
+        this.nome = nome;
+        this.dataLancamento = dataLancamento;
+        this.orcamento = orcamento;
+        this.descricao = descricao;
         this.diretor = diretor;
-        this.ano = ano;
-        this.ator = ator;
+        this.atores = new ArrayList<>();
     }
 
-    public String getTitulo() {
-        return titulo;
-    }
+    public void adicionarAtor(Ator ator) {
 
-    public String getGenero() {
-        return genero;
-    }
-
-    public String getIdioma() {
-        return idioma;
-    }
-
-    public String[] getDiretor() { return diretor;}
-
-    public String getAno() {
-        return ano;
-    }
-
-    public String[] getAtor() {
-        return ator;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
-
-    public void setIdioma(String idioma) {
-        this.idioma = idioma;
-    }
-
-    public void setDiretor(String[] diretor) {
-        this.diretor = diretor;
-    }
-
-    public void setAno(String ano) {
-        this.ano = ano;
-    }
-
-    public void setAtor(String[] ator) {
-        this.ator = ator;
+        atores.add(ator);
     }
 }

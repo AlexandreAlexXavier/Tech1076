@@ -1,16 +1,8 @@
 package ProjetoIMDB;
 
-public class Diretor {
-
-    private String nome;
-
-    public Diretor(String nome) {
-        this.nome = nome;
-    }
-    public String getNome() {
-        return nome;
-    }
-    public void setNome(String nome) {
-        this.nome = nome;
+class Diretor extends Pessoa {
+    public Diretor(String nome, String dataNascimento) {
+        super(nome, dataNascimento);
     }
 }
+
